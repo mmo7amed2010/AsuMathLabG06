@@ -13,15 +13,15 @@ Implement mathematical library software similar to Matlab.
 ## Description
 _**This is Phase number one which :**_
 
-**includes the core Operations to implement C++ class of matrix.**
+**1.includes the core Operations to implement C++ class of matrix.**
 
-**Supports dynamic creation and 	destruction of matrices of any size .**
+**2.Supports dynamic creation and 	destruction of matrices of any size .**
 
-**Supports addition,subtraction ,multiplication,transpose and division.**
+**3.Supports addition,subtraction ,multiplication,transpose and division.**
 
-**Proccess input user commands and show results directly.**
+**4.Proccess input user commands and show results directly.**
 
-**Proccess input file ,show each step result then exit.**
+**5.Proccess input file ,show each step result then exit.**
 
 
 
