@@ -68,5 +68,9 @@ public:
     CMatrix& getTranspose();
 	CMatrix& getInverse();
 	friend CMatrix& division_by_element(double d,CMatrix& X);
+	friend CMatrix& eye(int nr,int nc);
+	friend CMatrix& rand(int nr,int nc);
+	friend CMatrix& zeros(int nr,int nc);
+	friend CMatrix& ones(int nr,int nc);
 	};
 #endif // CMATRIX_H

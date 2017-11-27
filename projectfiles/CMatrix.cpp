@@ -2,7 +2,6 @@
 #include "stdarg.h"
 #include <algorithm>
 #include <math.h>
-#include <stdio.h>
 CMatrix::CMatrix()
 {
 	nR = nC = 0;
@@ -426,7 +425,7 @@ CMatrix& CMatrix::getTranspose(){
 }
 CMatrix& CMatrix::getInverse(){
 if(FastestDeterminant()==0)
-    throw ("error zero determinent");
+    throw (new string ("error zero determinent invalid division"));
  CMatrix a(nR,nC);
  CMatrix A;
  double d ;
@@ -477,30 +476,54 @@ double CMatrix:: FastestDeterminant()
 double ratio;
 CMatrix d(nR,nC);
 CMatrix t;
-for(int i=0;i<nC;i++)
-    {
-        d.values[0][i]=values[0][i];
-    }
+d=*this;
 for(int i=1;i<nR;i++)
 {
-    if(values[0][0]==0)
-    throw(new string("error invalid division determinant equals to 0"));
+
     ratio=values[i][0]/values[0][0];
     for(int j=0;j<nC;j++)
     {
         d.values[i][j]=values[i][j]-(ratio*values[0][j]);
     }
 }
-double value,v ;
-if(d.nC<=3&&d.nR<=3)
-value=d.getCofactor(0,0).getDeterminant()*d.values[0][0];
-if(d.nC>3&&d.nR>3)
+int row_exchange,exchange=1;
+for(int i=2;i<nR;i++)
 {
-t=d.getCofactor(0,0);
-v=t.FastestDeterminant();
-value=v*d.values[0][0];
-//value=d.getCofactor(0,0).FastestDeterminant()*d.values[0][0];
+    for(int j=1;j<nC&&j<i;j++)
+    {
+        if(d.values[i][j]!=0)
+        {
+        if(d.values[j][j]!=0)
+        {
+        ratio=d.values[i][j]/d.values[j][j];
+        for(int k=0;k<nR;k++)
+        d.values[i][k]=d.values[i][k]-(ratio*d.values[j][k]);
+        }else{
+            for(int k=i;k<nR;k++)
+            {
+                if(d.values[k][j]!=0)
+                {
+                    exchange *= -1;
+                    row_exchange = k;
+                    break ;
+                }
+            }
+            for(int h=0;h<nC;h++)
+            {
+                double temp = d.values[j][h];
+                d.values[j][h] = d.values[row_exchange][h];
+                d.values[row_exchange][h]=temp;
+            }
+            ratio=d.values[i][j]/d.values[j][j];
+        for(int k=0;k<nR;k++)
+        d.values[i][k]=d.values[i][k]-(ratio*d.values[j][k]);
+        }
+        }
+    }
 }
+double value = exchange ;
+for(int i=0;i<nR;i++)
+value*=d.values[i][i];
 return value;
 }
 
