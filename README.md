@@ -1,4 +1,4 @@
-# mathlap-group6
+# matlab-group6
 
 ## Getting Started
 
